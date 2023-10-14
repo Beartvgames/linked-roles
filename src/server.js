@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import config from './config.js';
 import * as discord from './discord.js';
 import * as storage from './storage.js';
-
+import * as run from './run.js';
 /**
  * Main HTTP server used for the bot.
  */
