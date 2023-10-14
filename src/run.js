@@ -1,19 +1,10 @@
 import fetch from 'node-fetch';
 import config from './config.js';
 
-const TOKEN = config.DISCORD_TOKEN;
-const GUILD_ID = config.GUILD_ID;
-
 const setBotOnline = async () => {
-  const endpoint = `https://discord.com/api/v10/guilds/${GUILD_ID}/members/@me`;
+  const endpoint = 'https://discord.com/api/v10/users/@me/settings';
   const data = {
-    op: 3,
-    d: {
-      status: 'online',
-      afk: false,
-      since: null,
-      game: null
-    }
+    status: 'online'
   };
 
   try {
@@ -22,17 +13,17 @@ const setBotOnline = async () => {
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bot ${TOKEN}`
+        'Authorization': `Bot ${config.DISCORD_TOKEN}`
       }
     });
 
     if (response.ok) {
-      console.log('Bot online');
+      console.log('Estado del bot actualizado a online');
     } else {
-      console.error('BUG:', response.statusText);
+      console.error('Error al actualizar el estado del bot:', response.statusText);
     }
   } catch (error) {
-    console.error('ERROR POST:', error.message);
+    console.error('Error al realizar la solicitud:', error.message);
   }
 };
 
